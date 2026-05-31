@@ -52,8 +52,8 @@ class StateServiceImplTest {
                 .thenReturn(List.of(viewStats));
 
         RequestFilterState filter = RequestFilterState.builder()
-                .start(LocalDateTime.parse("2022-09-06 11:00:23", UtilConstant.formatter))
-                .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.formatter))
+                .start(LocalDateTime.parse("2022-09-06 11:00:23", UtilConstant.FORMATTER))
+                .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.FORMATTER))
                 .uris(events)
                 .unique(true)
                 .build();
@@ -76,8 +76,8 @@ class StateServiceImplTest {
     void shouldReturnDateInvalidateException_whenStartDateAfterEndDate() {
 
         RequestFilterState filter = RequestFilterState.builder()
-                .start(LocalDateTime.parse("2024-09-06 11:00:23", UtilConstant.formatter))
-                .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.formatter))
+                .start(LocalDateTime.parse("2024-09-06 11:00:23", UtilConstant.FORMATTER))
+                .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.FORMATTER))
 //                .uris(List.of("/events/1"))
                 .unique(true)
                 .build();
