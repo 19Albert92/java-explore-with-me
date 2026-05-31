@@ -1,7 +1,6 @@
 package shared;
 
 import lombok.experimental.UtilityClass;
-
 import java.time.format.DateTimeFormatter;
 
 @UtilityClass
