@@ -43,19 +43,19 @@ class StateControllerTest {
     @Test
     void shouldReturnListViewStats_whenFilterMatches() {
 
-        RequestFilterState requestFilterState = RequestFilterState.builder()
-                .start(LocalDateTime.now())
-                .end(LocalDateTime.now().plusDays(1))
-                .build();
-
         List<ViewStats> stats = List.of(
                 ViewStats.builder().app("ewm-main-service").uri("/events/1").hits(1L).build(),
                 ViewStats.builder().app("ewm-main-service").uri("/events/3").hits(3L).build()
         );
 
-        Mockito.when(stateService.getStateByFilter(requestFilterState)).thenReturn(stats);
+        Mockito.when(stateService.getStateByFilter(Mockito.any(RequestFilterState.class))).thenReturn(stats);
 
-        List<ViewStats> result = stateController.getStates(requestFilterState);
+        List<ViewStats> result = stateController.getStates(
+                LocalDateTime.now(),
+                LocalDateTime.now().plusDays(2),
+                null,
+                null
+        );
 
         assertThat(result)
                 .hasSize(2)
@@ -64,6 +64,6 @@ class StateControllerTest {
                 .hasFieldOrPropertyWithValue("uri", "/events/1")
                 .hasFieldOrPropertyWithValue("hits", 1L);
 
-        Mockito.verify(stateService).getStateByFilter(requestFilterState);
+        Mockito.verify(stateService).getStateByFilter(Mockito.any(RequestFilterState.class));
     }
 }

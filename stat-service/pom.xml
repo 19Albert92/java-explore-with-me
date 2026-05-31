@@ -9,8 +9,8 @@
     </parent>
     <artifactId>stat-service</artifactId>
     <packaging>pom</packaging>
-    <name>stat-base-service</name>
-    <description>stat-base-service</description>
+    <name>stat-service</name>
+    <description>stat-service</description>
     <url/>
     <licenses>
         <license/>

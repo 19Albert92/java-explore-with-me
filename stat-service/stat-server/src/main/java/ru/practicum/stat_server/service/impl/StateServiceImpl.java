@@ -33,11 +33,11 @@ public class StateServiceImpl implements StateService {
             throw new DateInvalidateException("Запуск фильтра должен быть до окончания");
         }
 
-        if (filter.getUris() == null || filter.getUris().isEmpty()) {
-            return findStates(filter.getStart(), filter.getEnd(), filter.isUnique());
+        if (filter.getUris() == null || filter.getUris().length == 0) {
+            return findStates(filter.getStart(), filter.getEnd(), filter.getUnique());
         }
 
-        return findStatesByUris(filter.getStart(), filter.getEnd(), filter.isUnique(), filter.getUris());
+        return findStatesByUris(filter.getStart(), filter.getEnd(), filter.getUnique(), filter.getUris());
     }
 
     @Transactional
@@ -49,12 +49,12 @@ public class StateServiceImpl implements StateService {
         stateRepository.save(statistic);
     }
 
-    private List<ViewStats> findStatesByUris(LocalDateTime start, LocalDateTime end, boolean uniq, List<String> uris) {
+    private List<ViewStats> findStatesByUris(LocalDateTime start, LocalDateTime end, boolean uniq, String[] uris) {
         if (uniq) {
-            return stateRepository.findUniqStatsWithUris(start, end, uris);
+            return stateRepository.findUniqStatsWithUris(start, end, List.of(uris));
         }
 
-        return stateRepository.findNotUniqStatsWithUris(start, end, uris);
+        return stateRepository.findNotUniqStatsWithUris(start, end, List.of(uris));
     }
 
     private List<ViewStats> findStates(LocalDateTime start, LocalDateTime end, boolean uniq) {

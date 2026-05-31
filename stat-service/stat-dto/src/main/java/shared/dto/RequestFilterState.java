@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import shared.UtilConstant;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +21,6 @@ public class RequestFilterState {
     @NotNull(message = "Дата окончание валидации обязательна")
     @DateTimeFormat(pattern = UtilConstant.DATE_TIME_FORMAT)
     private LocalDateTime end;
-    private List<String> uris;
-    private boolean unique;
+    private String[] uris;
+    private Boolean unique;
 }

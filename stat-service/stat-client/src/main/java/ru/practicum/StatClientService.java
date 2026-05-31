@@ -65,9 +65,9 @@ public class StatClientService {
         StringJoiner joiner = new StringJoiner("&");
         joiner.add("start=" + encodeUTF8(filterState.getStart().format(UtilConstant.formatter)));
         joiner.add("end=" + encodeUTF8(filterState.getEnd().format(UtilConstant.formatter)));
-        joiner.add("unique=" + filterState.isUnique());
+        joiner.add("unique=" + filterState.getUnique());
 
-        if (filterState.getUris() != null && !filterState.getUris().isEmpty()) {
+        if (filterState.getUris() != null && filterState.getUris().length != 0) {
             joiner.add("uris=" + encodeUTF8(filterState.getUris()));
         }
 

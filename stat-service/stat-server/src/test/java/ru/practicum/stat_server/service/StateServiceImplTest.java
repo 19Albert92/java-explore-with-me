@@ -41,6 +41,8 @@ class StateServiceImplTest {
     @Test
     void shouldReturnListViewStats_whenGetStatisticByFilter() {
 
+        String[] events = {"/events/1"};
+
         ViewStats viewStats = new ViewStats();
         viewStats.setApp("app1");
         viewStats.setHits(1L);
@@ -52,7 +54,7 @@ class StateServiceImplTest {
         RequestFilterState filter = RequestFilterState.builder()
                 .start(LocalDateTime.parse("2022-09-06 11:00:23", UtilConstant.formatter))
                 .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.formatter))
-                .uris(List.of("/events/1"))
+                .uris(events)
                 .unique(true)
                 .build();
 
@@ -76,7 +78,7 @@ class StateServiceImplTest {
         RequestFilterState filter = RequestFilterState.builder()
                 .start(LocalDateTime.parse("2024-09-06 11:00:23", UtilConstant.formatter))
                 .end(LocalDateTime.parse("2024-05-06 09:00:13", UtilConstant.formatter))
-                .uris(List.of("/events/1"))
+//                .uris(List.of("/events/1"))
                 .unique(true)
                 .build();
 
