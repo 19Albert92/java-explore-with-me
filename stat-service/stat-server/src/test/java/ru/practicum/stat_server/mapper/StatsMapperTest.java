@@ -35,6 +35,6 @@ class StatsMapperTest {
                 .hasFieldOrPropertyWithValue("app", expectedApp)
                 .hasFieldOrPropertyWithValue("ip", expectedIp)
                 .hasFieldOrPropertyWithValue("timestamp",
-                        LocalDateTime.parse(expectedTimestamp, UtilConstant.formatter));
+                        LocalDateTime.parse(expectedTimestamp, UtilConstant.FORMATTER));
     }
 }

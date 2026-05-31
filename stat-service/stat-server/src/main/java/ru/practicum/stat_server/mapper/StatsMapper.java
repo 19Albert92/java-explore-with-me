@@ -16,7 +16,7 @@ public class StatsMapper {
                 .uri(endpointHit.getUri())
                 .app(endpointHit.getApp())
                 .ip(endpointHit.getIp())
-                .timestamp(LocalDateTime.parse(endpointHit.getTimestamp(), UtilConstant.formatter))
+                .timestamp(LocalDateTime.parse(endpointHit.getTimestamp(), UtilConstant.FORMATTER))
                 .build();
     }
 }

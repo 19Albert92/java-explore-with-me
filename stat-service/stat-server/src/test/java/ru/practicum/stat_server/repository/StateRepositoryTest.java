@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static shared.UtilConstant.formatter;
+import static shared.UtilConstant.FORMATTER;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -30,25 +30,25 @@ class StateRepositoryTest {
                         .ip("127.0.0.1")
                         .app("ewm-main-service")
                         .uri("/events/1")
-                        .timestamp(LocalDateTime.parse("2022-09-06 11:00:23", formatter))
+                        .timestamp(LocalDateTime.parse("2022-09-06 11:00:23", FORMATTER))
                         .build(),
                 Statistic.builder()
                         .ip("127.0.0.2")
                         .app("ewm-main-service")
                         .uri("/events/2")
-                        .timestamp(LocalDateTime.parse("2022-09-08 12:00:23", formatter))
+                        .timestamp(LocalDateTime.parse("2022-09-08 12:00:23", FORMATTER))
                         .build(),
                 Statistic.builder()
                         .ip("127.0.0.1")
                         .app("ewm-main-service")
                         .uri("/events/2")
-                        .timestamp(LocalDateTime.parse("2022-09-14 09:20:23", formatter))
+                        .timestamp(LocalDateTime.parse("2022-09-14 09:20:23", FORMATTER))
                         .build(),
                 Statistic.builder()
                         .ip("127.0.0.5")
                         .app("ewm-main-service")
                         .uri("/events/3")
-                        .timestamp(LocalDateTime.parse("2022-09-14 09:20:23", formatter))
+                        .timestamp(LocalDateTime.parse("2022-09-14 09:20:23", FORMATTER))
                         .build()
         );
 
@@ -59,8 +59,8 @@ class StateRepositoryTest {
     void shouldReturnedListUniqStatistic_whenConstraintByFilter() {
 
         List<ViewStats> uniqStatsAllUris = stateRepository.findUniqStatsAllUris(
-                LocalDateTime.parse("2022-09-06 09:20:23", formatter),
-                LocalDateTime.parse("2022-09-14 12:00:23", formatter)
+                LocalDateTime.parse("2022-09-06 09:20:23", FORMATTER),
+                LocalDateTime.parse("2022-09-14 12:00:23", FORMATTER)
         );
 
         assertThat(uniqStatsAllUris)
@@ -69,8 +69,8 @@ class StateRepositoryTest {
                 .hasFieldOrPropertyWithValue("uri", "/events/2");
 
         List<ViewStats> uniqStatsWithUris = stateRepository.findUniqStatsWithUris(
-                LocalDateTime.parse("2022-09-06 09:20:23", formatter),
-                LocalDateTime.parse("2022-09-14 12:00:23", formatter),
+                LocalDateTime.parse("2022-09-06 09:20:23", FORMATTER),
+                LocalDateTime.parse("2022-09-14 12:00:23", FORMATTER),
                 List.of("/events/2","/events/1")
         );
 
@@ -84,8 +84,8 @@ class StateRepositoryTest {
     void shouldReturnedListNotUniqStatistic_whenConstraintByFilter() {
 
         List<ViewStats> notUniqStatsAllUris = stateRepository.findNotUniqStatsAllUris(
-                LocalDateTime.parse("2022-09-06 09:20:23", formatter),
-                LocalDateTime.parse("2022-09-14 12:00:23", formatter)
+                LocalDateTime.parse("2022-09-06 09:20:23", FORMATTER),
+                LocalDateTime.parse("2022-09-14 12:00:23", FORMATTER)
         );
 
         assertThat(notUniqStatsAllUris)
@@ -94,8 +94,8 @@ class StateRepositoryTest {
                 .hasFieldOrPropertyWithValue("uri", "/events/2");
 
         List<ViewStats> notUniqStatsWithUris = stateRepository.findNotUniqStatsWithUris(
-                LocalDateTime.parse("2022-09-06 09:20:23", formatter),
-                LocalDateTime.parse("2022-09-14 12:00:23", formatter),
+                LocalDateTime.parse("2022-09-06 09:20:23", FORMATTER),
+                LocalDateTime.parse("2022-09-14 12:00:23", FORMATTER),
                 List.of("/events/2","/events/1")
         );
 

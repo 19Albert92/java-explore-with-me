@@ -63,8 +63,8 @@ public class StatClientService {
         StringBuilder url = new StringBuilder(serviceUrl + "/stats?");
 
         StringJoiner joiner = new StringJoiner("&");
-        joiner.add("start=" + encodeUTF8(filterState.getStart().format(UtilConstant.formatter)));
-        joiner.add("end=" + encodeUTF8(filterState.getEnd().format(UtilConstant.formatter)));
+        joiner.add("start=" + encodeUTF8(filterState.getStart().format(UtilConstant.FORMATTER)));
+        joiner.add("end=" + encodeUTF8(filterState.getEnd().format(UtilConstant.FORMATTER)));
         joiner.add("unique=" + filterState.getUnique());
 
         if (filterState.getUris() != null && filterState.getUris().length != 0) {
