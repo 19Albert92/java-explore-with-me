@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = StateController.class)
 class StateControllerModuleTest {
 
-    private final String BASE_URL = "http://localhost:9090";
+    private static final String BASE_URL = "http://localhost:9090";
 
     @Autowired
     private MockMvc mockMvc;
