@@ -24,14 +24,15 @@ services:
       test: ["CMD-SHELL", "pg_isready -U dbuser -d stats"]
 
   ewm-service:
+    build: ./main-service
     ports:
       - "8080:8080"
     depends_on:
       ewm-db:
         condition: service_healthy
     environment:
-      - SERVER_PORT=9090
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5433/main
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/main
       - SPRING_DATASOURCE_USERNAME=main_user
       - SPRING_DATASOURCE_PASSWORD=main_password
 
