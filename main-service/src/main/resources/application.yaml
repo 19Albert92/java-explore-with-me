@@ -4,8 +4,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ewm-db:5433/main}
-    username: ${POSTGRES_USER:main_user}
-    password: ${POSTGRES_PASSWORD:main_password}
+    username: ${SPRING_DATASOURCE_USERNAME:main_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:main_password}
   jpa:
     hibernate:
       ddl-auto: none

@@ -20,4 +20,8 @@ public class Location {
 
     @Column(name = "lon", nullable = false)
     private float longitude;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, referencedColumnName = "id")
+    private Event event;
 }

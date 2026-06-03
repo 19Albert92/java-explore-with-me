@@ -5,3 +5,10 @@ CREATE TABLE IF NOT EXISTS users(
     CONSTRAINT pk_user PRIMARY KEY (id),
     CONSTRAINT uq_user_email UNIQUE (email)
 );
+
+CREATE TABLE IF NOT EXISTS categories(
+     id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+     name VARCHAR(250) NOT NULL,
+     CONSTRAINT pk_category PRIMARY KEY (id),
+     CONSTRAINT uq_category_name UNIQUE (name)
+)
