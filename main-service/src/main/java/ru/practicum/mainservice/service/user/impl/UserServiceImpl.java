@@ -13,7 +13,7 @@ import ru.practicum.mainservice.entity.User;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.user.UserNotFoundException;
 import ru.practicum.mainservice.mapper.UserMapper;
-import ru.practicum.mainservice.repository.user.UserRepository;
+import ru.practicum.mainservice.repository.UserRepository;
 import ru.practicum.mainservice.service.user.UserService;
 
 import java.util.List;

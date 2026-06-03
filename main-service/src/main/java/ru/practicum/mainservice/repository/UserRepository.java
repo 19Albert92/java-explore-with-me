@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.repository.user;
+package ru.practicum.mainservice.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

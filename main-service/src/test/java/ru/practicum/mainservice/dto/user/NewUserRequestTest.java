@@ -19,7 +19,7 @@ class NewUserRequestTest {
 
     private static Stream<Arguments> provideEmailsAndErrorsText() {
         return Stream.of(
-                Arguments.arguments(null, "Поле email обязательно к заполнению"),
+                Arguments.arguments(null, "Field: email. Error: must not be blank. Value: null"),
                 Arguments.arguments("", "Email должен состоять из 6 - 254 символов"),
                 Arguments.arguments("example.email", "Email не валиден")
         );
@@ -27,7 +27,7 @@ class NewUserRequestTest {
 
     private static Stream<Arguments> provideNameAndErrorsText() {
         return Stream.of(
-                Arguments.arguments(null, "Поле name обязательно к заполнению"),
+                Arguments.arguments(null, "Field: name. Error: must not be blank. Value: null"),
                 Arguments.arguments("", "Имя должен состоять из 6 - 254 символов"),
                 Arguments.arguments(" ", "Имя должен состоять из 6 - 254 символов")
         );

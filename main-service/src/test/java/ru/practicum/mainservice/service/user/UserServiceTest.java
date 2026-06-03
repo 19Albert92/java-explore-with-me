@@ -15,7 +15,7 @@ import ru.practicum.mainservice.dto.user.UserDto;
 import ru.practicum.mainservice.entity.User;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.user.UserNotFoundException;
-import ru.practicum.mainservice.repository.user.UserRepository;
+import ru.practicum.mainservice.repository.UserRepository;
 import ru.practicum.mainservice.service.user.impl.UserServiceImpl;
 
 import java.util.List;
