@@ -67,9 +67,6 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(RuntimeException exception) {
-
-        System.out.println(exception.getMessage());
-
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(exception.getMessage(), Map.of()));
