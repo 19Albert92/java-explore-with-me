@@ -17,10 +17,12 @@ import static shared.UtilConstant.DATE_TIME_FORMAT;
 
 @Builder
 public record UpdateEventAdminDto(
-        @Length(min = 20, max = 2000)
+        @Length(min = 20, max = 2000,
+                message = "There should not be less than 20 and more than 2000 characters. Value: {validatedValue}")
         String annotation,
         Long category,
-        @Length(min = 20, max = 7000)
+        @Length(min = 20, max = 7000,
+                message = "There should not be less than 20 and more than 7000 characters. Value: {validatedValue}")
         String description,
         @MinHoursFromNow(message =
                 "Field: eventDate. Error: must contain a date that has not yet arrived. Value: {validatedValue}")
@@ -33,7 +35,8 @@ public record UpdateEventAdminDto(
         Boolean requestModeration,
         @JsonProperty("stateAction")
         AdminStateAction state,
-        @Length(min = 3, max = 120)
+        @Length(min = 3, max = 120,
+                message = "There should not be less than 3 and more than 120 characters. Value: {validatedValue}")
         String title
 ) {
 

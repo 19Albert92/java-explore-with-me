@@ -10,7 +10,7 @@ import java.util.Set;
 public record NewCompilationDto(
         Set<Integer> events,
         boolean pinned,
-        @NotBlank(message = "Field: title. Error: must not be blank. Value: null")
+        @NotBlank(message = "Field: title. Error: must not be blank. Value: {validatedValue}")
         @Length(min = 1, max = 50, message = "Заголовок должен содержать не больше 50 символов")
         String title
 ) {

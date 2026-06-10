@@ -1,21 +1,13 @@
 package ru.practicum.mainservice.dto.user;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import ru.practicum.mainservice.dto.UtilDtoValidate;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-class NewUserRequestTest {
-
-    private Validator validator;
+class NewUserRequestTest extends UtilDtoValidate {
 
     private static Stream<Arguments> provideEmailsAndErrorsText() {
         return Stream.of(
@@ -33,13 +25,6 @@ class NewUserRequestTest {
         );
     }
 
-    @BeforeEach
-    void setUp() {
-        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
-            validator = factory.getValidator();
-        }
-    }
-
     @ParameterizedTest
     @MethodSource("provideEmailsAndErrorsText")
     void shouldFailEmailValidation(String email, String error) {
@@ -49,9 +34,7 @@ class NewUserRequestTest {
                 .name("Petia")
                 .build();
 
-        assertThat(validator.validate(newUserRequest))
-                .extracting(ConstraintViolation::getMessage)
-                .contains(error);
+        checkField(newUserRequest, error);
     }
 
     @ParameterizedTest
@@ -62,8 +45,6 @@ class NewUserRequestTest {
                 .name(name)
                 .build();
 
-        assertThat(validator.validate(newUserRequest))
-                .extracting(ConstraintViolation::getMessage)
-                .contains(error);
+        checkField(newUserRequest, error);
     }
 }
