@@ -19,7 +19,7 @@ class NewCategoryDtoTest {
 
     private static Stream<Arguments> provideNameAndErrorText() {
         return Stream.of(
-                Arguments.arguments(null, "Field: name. Error: must not be null"),
+                Arguments.arguments(null, "Field: name. Error: must not be blank. Value: ''"),
                 Arguments.arguments("", "Название категории должно иметь от 1 до 50 символов"),
                 Arguments.arguments(" ", "Field: name. Error: must not be blank. Value: ''")
         );

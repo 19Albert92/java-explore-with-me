@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto save(NewCategoryDto newCategoryDto) throws ConflictException {
 
-        existsByName(newCategoryDto.name());
+        checkCategoryByName(newCategoryDto.name());
 
         Category category = CategoryMapper.mapToCategory(newCategoryDto);
 
@@ -49,9 +49,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto update(Long catId, NewCategoryDto newCategoryDto) {
 
-        existsByName(newCategoryDto.name());
-
         Category category = findByIdOrException(catId);
+
+        if (category.getName().equals(newCategoryDto.name())) {
+            return CategoryMapper.mapToCategoryDto(category);
+        }
+
+        checkCategoryByName(newCategoryDto.name());
 
         log.debug("Updating category with id {}", category.getId());
 
@@ -64,6 +68,18 @@ public class CategoryServiceImpl implements CategoryService {
         updateCategory = categoryRepository.save(updateCategory);
 
         return CategoryMapper.mapToCategoryDto(updateCategory);
+    }
+
+    private void checkCategoryByName(String name) {
+        Category byName = categoryRepository.findByName(name);
+
+        if (byName != null) {
+            log.error("Category with name {} already exists", name);
+            throw new ConflictException(
+                    "Integrity constraint has been violated.",
+                    "Category name already exists"
+            );
+        }
     }
 
     @Override
@@ -90,15 +106,5 @@ public class CategoryServiceImpl implements CategoryService {
                         "The required object was not found.",
                         "Category with id=%d was not found".formatted(catId)
                 ));
-    }
-
-    private void existsByName(String name) {
-        if (categoryRepository.existsByName(name)) {
-            log.error("Category with name {} already exists", name);
-            throw new ConflictException(
-                    "Integrity constraint has been violated.",
-                    "Category name already exists"
-            );
-        }
     }
 }

@@ -26,10 +26,10 @@ class CategoryRepositoryTest {
 
         categoryRepository.saveAll(categories);
 
-        Assertions.assertTrue(categoryRepository.existsByName(expectedName),
+        Assertions.assertNotNull(categoryRepository.findByName(expectedName),
                 "Такая категория существует");
 
-        Assertions.assertFalse(categoryRepository.existsByName("Плавание"),
+        Assertions.assertNull(categoryRepository.findByName("Плавание"),
                 "Такой категории не существует");
     }
 }

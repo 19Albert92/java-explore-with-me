@@ -38,7 +38,7 @@ class UserControllerTest {
     void shouldReturnedStatus201_whenUserSavedSuccessfully() throws Exception {
 
         final String expectedEmail = "example@gmail.com";
-        final String expectedName = "test";
+        final String expectedName = "text";
 
         NewUserRequest newUserRequest = NewUserRequest.builder().email(expectedEmail).name(expectedName).build();
 

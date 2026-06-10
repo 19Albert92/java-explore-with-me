@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainservice.dto.category.CategoryDto;
 import ru.practicum.mainservice.dto.category.NewCategoryDto;
 import ru.practicum.mainservice.service.category.CategoryService;
+import ru.practicum.mainservice.service.event.EventToCategory;
 
 @RestController
 @RequestMapping("/admin/categories")
@@ -14,6 +15,7 @@ import ru.practicum.mainservice.service.category.CategoryService;
 public class AdminCategoryController {
 
     private final CategoryService categoryService;
+    private final EventToCategory categoryFacade;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -24,13 +26,13 @@ public class AdminCategoryController {
     @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long catId) {
-        categoryService.delete(catId);
+        categoryFacade.deleteOrExceptionCategoryById(catId);
     }
 
     @PatchMapping("/{catId}")
     public CategoryDto updateCategory(
             @PathVariable Long catId,
-            @RequestBody NewCategoryDto newCategoryDto) {
+            @Valid @RequestBody NewCategoryDto newCategoryDto) {
         return categoryService.update(catId, newCategoryDto);
     }
 }

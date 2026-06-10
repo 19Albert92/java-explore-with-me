@@ -34,6 +34,8 @@ class UserRepositoryTest {
 
         boolean existsByEmail = userRepository.existsByEmail(expectedEmail);
 
+        System.out.println(existsByEmail);
+
         Assertions.assertTrue(existsByEmail, "Должен найти пользователя по email так как он имеется");
     }
 

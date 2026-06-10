@@ -43,7 +43,7 @@ class CategoryServiceTest {
 
         Category category = Category.builder().name(NEW_CATEGORY_NAME).id(1L).build();
 
-        Mockito.when(categoryRepository.existsByName(NEW_CATEGORY_NAME)).thenReturn(false);
+        Mockito.when(categoryRepository.findByName(NEW_CATEGORY_NAME)).thenReturn(null);
 
         Mockito.when(categoryRepository.save(Mockito.any(Category.class))).thenReturn(category);
 
@@ -53,7 +53,7 @@ class CategoryServiceTest {
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("name", NEW_CATEGORY_NAME);
 
-        Mockito.verify(categoryRepository).existsByName(NEW_CATEGORY_NAME);
+        Mockito.verify(categoryRepository).findByName(NEW_CATEGORY_NAME);
         Mockito.verify(categoryRepository).save(Mockito.any(Category.class));
     }
 
@@ -77,7 +77,7 @@ class CategoryServiceTest {
 
         Category category = Category.builder().name(OLD_CATEGORY_NAME).id(1L).build();
 
-        Mockito.when(categoryRepository.existsByName(NEW_CATEGORY_NAME)).thenReturn(false);
+        Mockito.when(categoryRepository.findByName(NEW_CATEGORY_NAME)).thenReturn(null);
 
         Mockito.when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
 
@@ -89,7 +89,7 @@ class CategoryServiceTest {
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("name", NEW_CATEGORY_NAME);
 
-        Mockito.verify(categoryRepository).existsByName(NEW_CATEGORY_NAME);
+        Mockito.verify(categoryRepository).findByName(NEW_CATEGORY_NAME);
         Mockito.verify(categoryRepository).findById(1L);
         Mockito.verify(categoryRepository).save(Mockito.any(Category.class));
     }

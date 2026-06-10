@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.mainservice.dto.category.CategoryDto;
 import ru.practicum.mainservice.dto.category.NewCategoryDto;
 import ru.practicum.mainservice.service.category.CategoryService;
+import ru.practicum.mainservice.service.event.EventToCategory;
 
 import java.nio.charset.StandardCharsets;
 
@@ -31,6 +32,9 @@ class AdminCategoryControllerTest {
 
     @MockBean
     private CategoryService categoryService;
+
+    @MockBean
+    private EventToCategory categoryFacade;
 
     private static final long CAT_ID = 1L;
 
@@ -62,7 +66,7 @@ class AdminCategoryControllerTest {
         mockMvc.perform(delete(BASE_URL + "/{catId}", CAT_ID))
                 .andExpect(status().isNoContent());
 
-        Mockito.verify(categoryService).delete(CAT_ID);
+        Mockito.verify(categoryFacade).deleteOrExceptionCategoryById(CAT_ID);
     }
 
     @Test
