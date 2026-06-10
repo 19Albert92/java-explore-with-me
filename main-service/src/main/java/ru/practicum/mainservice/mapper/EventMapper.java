@@ -135,7 +135,7 @@ public class EventMapper {
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.mapToCategoryDto(event.getCategory()))
                 .confirmedRequests(confirmRequest)
-                .location(LocationMapper.mapToLocationDto(event.getLocation()))
+                .location(event.getLocation())
                 .createdOn(event.getCreatedAt().format(FORMATTER))
                 .eventDate(event.getEventDate().format(FORMATTER))
                 .initiator(UserMapper.mapToUserShortDto(event.getInitiator()))

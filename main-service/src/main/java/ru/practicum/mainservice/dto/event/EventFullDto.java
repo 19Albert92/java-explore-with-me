@@ -2,9 +2,9 @@ package ru.practicum.mainservice.dto.event;
 
 import lombok.Builder;
 import ru.practicum.mainservice.dto.category.CategoryDto;
-import ru.practicum.mainservice.dto.locaion.LocationDto;
 import ru.practicum.mainservice.dto.user.UserShortDto;
 import ru.practicum.mainservice.entity.event.EventState;
+import ru.practicum.mainservice.entity.event.Location;
 
 @Builder
 public record EventFullDto(
@@ -12,7 +12,7 @@ public record EventFullDto(
         String annotation,
         CategoryDto category,
         long confirmedRequests,
-        LocationDto location,
+        Location location,
         String createdOn,
         String eventDate,
         UserShortDto initiator,

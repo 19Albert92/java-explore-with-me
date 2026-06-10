@@ -8,7 +8,6 @@ import java.util.List;
 
 import static shared.UtilConstant.DATE_TIME_FORMAT;
 
-
 public record QueryEventsDto(
         List<Long> users,
         List<EventState> states,

@@ -1,10 +1,7 @@
 package ru.practicum.mainservice.service.compilation.impl;
 
-import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.mainservice.dto.compilation.CompilationDto;
@@ -16,10 +13,10 @@ import ru.practicum.mainservice.entity.event.Event;
 import ru.practicum.mainservice.exception.compilation.CompilationNotFoundException;
 import ru.practicum.mainservice.mapper.CompilationMapper;
 import ru.practicum.mainservice.repository.CompilationRepository;
+import ru.practicum.mainservice.repository.query.CompilationQueryRepository;
 import ru.practicum.mainservice.service.compilation.CompilationService;
 import ru.practicum.mainservice.service.event.EventService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +27,7 @@ public class CompilationServiceImpl implements CompilationService {
 
     private final CompilationRepository compilationRepository;
     private final EventService eventService;
+    private final CompilationQueryRepository compilationQueryRepository;
 
     @Override
     @Transactional
@@ -75,7 +73,6 @@ public class CompilationServiceImpl implements CompilationService {
 
         log.debug("update compilation {}", updateCompilation);
 
-
         return CompilationMapper.toCompilationDto(compilation, eventsDto);
     }
 
@@ -92,18 +89,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public List<CompilationDto> findAll(Boolean pinned, int from, int size) {
 
-        Specification<Compilation> specification = ((root, query, builder) -> {
-
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (pinned != null) {
-                predicates.add(builder.equal(root.get("pinned"), pinned));
-            }
-
-            return builder.and(predicates.toArray(new Predicate[0]));
-        });
-
-        return compilationRepository.findAll(specification, PageRequest.of(from, size)).stream()
+        return compilationQueryRepository.findCompilationByPinedFilter(pinned, from, size).stream()
                 .map(compilation ->
                         CompilationMapper.toCompilationDto(
                                 compilation,
