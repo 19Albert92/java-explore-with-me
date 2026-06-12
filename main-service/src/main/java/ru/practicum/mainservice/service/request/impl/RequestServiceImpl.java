@@ -14,7 +14,7 @@ import ru.practicum.mainservice.entity.request.ApplicationStatus;
 import ru.practicum.mainservice.entity.request.EventRequest;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.event.EventNotFoundException;
-import ru.practicum.mainservice.mapper.RequestMapping;
+import ru.practicum.mainservice.mapper.RequestMapper;
 import ru.practicum.mainservice.repository.RequestRepository;
 import ru.practicum.mainservice.service.event.EventToRequestService;
 import ru.practicum.mainservice.service.request.RequestService;
@@ -47,7 +47,7 @@ public class RequestServiceImpl implements RequestService {
         }
 
         return requestRepository.findAllByEventId(eventId).stream()
-                .map(RequestMapping::mapToRequestDto)
+                .map(RequestMapper::mapToRequestDto)
                 .toList();
     }
 
@@ -69,8 +69,8 @@ public class RequestServiceImpl implements RequestService {
                 .collect(Collectors.groupingBy(EventRequest::getStatus));
 
         return new UpdateRequestStatusDto(
-                request.getOrDefault(ApplicationStatus.CONFIRMED, List.of()).stream().map(RequestMapping::mapToRequestDto).toList(),
-                request.getOrDefault(ApplicationStatus.REJECTED, List.of()).stream().map(RequestMapping::mapToRequestDto).toList()
+                request.getOrDefault(ApplicationStatus.CONFIRMED, List.of()).stream().map(RequestMapper::mapToRequestDto).toList(),
+                request.getOrDefault(ApplicationStatus.REJECTED, List.of()).stream().map(RequestMapper::mapToRequestDto).toList()
         );
     }
 
@@ -80,7 +80,7 @@ public class RequestServiceImpl implements RequestService {
         List<EventRequest> requests = requestRepository.findAllByUserId(userId);
 
         return requests.stream()
-                .map(RequestMapping::mapToRequestDto)
+                .map(RequestMapper::mapToRequestDto)
                 .toList();
     }
 
@@ -116,11 +116,11 @@ public class RequestServiceImpl implements RequestService {
             );
         }
 
-        EventRequest eventRequest = RequestMapping.mapToEventRequest(requester, event, requestStatus);
+        EventRequest eventRequest = RequestMapper.mapToEventRequest(requester, event, requestStatus);
 
         eventRequest = requestRepository.save(eventRequest);
 
-        return RequestMapping.mapToRequestDto(eventRequest);
+        return RequestMapper.mapToRequestDto(eventRequest);
     }
 
     private void checkInitiator(Event event, Long userId) {
@@ -160,11 +160,11 @@ public class RequestServiceImpl implements RequestService {
 
         EventRequest request = findByIdOrException(requestId);
 
-        EventRequest updateRequest = RequestMapping.mapToEventRequestWithCancelStatus(request);
+        EventRequest updateRequest = RequestMapper.mapToEventRequestWithCancelStatus(request);
 
         request = requestRepository.save(updateRequest);
 
-        return RequestMapping.mapToRequestDto(request);
+        return RequestMapper.mapToRequestDto(request);
     }
 
     public EventRequest findByIdOrException(Long requestId) {

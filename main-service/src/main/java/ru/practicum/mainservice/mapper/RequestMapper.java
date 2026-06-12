@@ -10,7 +10,7 @@ import ru.practicum.mainservice.entity.event.Event;
 import java.time.LocalDateTime;
 
 @UtilityClass
-public class RequestMapping {
+public class RequestMapper {
 
     public static EventRequest mapToEventRequest(User requester, Event event, ApplicationStatus status) {
         return EventRequest.builder()

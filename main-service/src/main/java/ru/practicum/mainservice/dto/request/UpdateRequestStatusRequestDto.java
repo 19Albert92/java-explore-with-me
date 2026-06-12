@@ -5,7 +5,7 @@ import ru.practicum.mainservice.entity.request.ApplicationStatus;
 import java.util.List;
 
 public record UpdateRequestStatusRequestDto(
-        List<Integer> requestIds,
+        List<Long> requestIds,
         ApplicationStatus status
 ) {
 }

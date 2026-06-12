@@ -33,11 +33,13 @@ public interface RequestRepository extends JpaRepository<EventRequest, Long> {
     @Transactional
     @Query("UPDATE EventRequest AS r SET r.status = :status WHERE r.event.id = :eventId AND id IN :requestIds")
     void updateRequestsStatus(
-            @Param("requestIds") List<Integer> requestIds,
+            @Param("requestIds") List<Long> requestIds,
             @Param("status") ApplicationStatus status,
             @Param("eventId") Long eventId
     );
 
+    @Modifying
+    @Transactional
     @Query("UPDATE EventRequest AS r SET r.status = 'REJECTED' WHERE r.event.id = :eventId AND status = 'PENDING'")
     void resetQueriesOther(@Param("eventId") Long eventId);
 
