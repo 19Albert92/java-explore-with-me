@@ -3,7 +3,6 @@ spring:
     name: main-service
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ewm-db:5433/main}
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/main}
     username: ${SPRING_DATASOURCE_USERNAME:main_user}
     password: ${SPRING_DATASOURCE_PASSWORD:main_password}
@@ -22,5 +21,4 @@ server:
   port: ${SERVER_PORT:8080}
 stat:
   service:
-    url:
-      http://localhost:9090
+    url: ${STAT_SERVICE_URI:http://localhost:9090}

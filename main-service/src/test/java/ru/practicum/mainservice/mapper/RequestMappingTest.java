@@ -7,6 +7,8 @@ import ru.practicum.mainservice.entity.event.Event;
 import ru.practicum.mainservice.entity.request.ApplicationStatus;
 import ru.practicum.mainservice.entity.request.EventRequest;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RequestMappingTest {
@@ -17,7 +19,9 @@ class RequestMappingTest {
 
     private static final ApplicationStatus STATUS = ApplicationStatus.PENDING;
 
-    private static final EventRequest REQUEST = EventRequest.builder().event(EVENT).status(STATUS).user(USER).build();
+    private static final EventRequest REQUEST = EventRequest.builder()
+            .created(LocalDateTime.now())
+            .event(EVENT).status(STATUS).user(USER).build();
 
     @Test
     void mapToEventRequestTest() {

@@ -2,12 +2,14 @@ package ru.practicum.mainservice.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.mainservice.dto.request.RequestDto;
-import ru.practicum.mainservice.entity.request.ApplicationStatus;
-import ru.practicum.mainservice.entity.request.EventRequest;
 import ru.practicum.mainservice.entity.User;
 import ru.practicum.mainservice.entity.event.Event;
+import ru.practicum.mainservice.entity.request.ApplicationStatus;
+import ru.practicum.mainservice.entity.request.EventRequest;
 
 import java.time.LocalDateTime;
+
+import static shared.UtilConstant.FORMATTER;
 
 @UtilityClass
 public class RequestMapper {
@@ -27,7 +29,7 @@ public class RequestMapper {
                 .status(eventRequest.getStatus())
                 .event(eventRequest.getEvent().getId())
                 .requester(eventRequest.getUser().getId())
-                .created(eventRequest.getCreated())
+                .created(eventRequest.getCreated().format(FORMATTER))
                 .build();
     }
 
