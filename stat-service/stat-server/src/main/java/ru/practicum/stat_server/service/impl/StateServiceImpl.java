@@ -16,6 +16,8 @@ import shared.dto.ViewStats;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static shared.UtilConstant.FORMATTER;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,10 @@ public class StateServiceImpl implements StateService {
         log.debug("Фильтр стратистики по параметрам {}", filter);
 
         if (filter.getStart().isAfter(filter.getEnd())) {
+
+            log.error("Error --------> {} : {}",
+                    filter.getStart().format(FORMATTER), filter.getEnd().format(FORMATTER));
+
             throw new DateInvalidateException("Запуск фильтра должен быть до окончания");
         }
 
@@ -47,6 +53,8 @@ public class StateServiceImpl implements StateService {
         Statistic statistic = StatsMapper.mapToStatistic(endpointHit);
 
         stateRepository.save(statistic);
+
+        log.debug("Статистика успешно сохранилась {}", endpointHit);
     }
 
     private List<ViewStats> findStatesByUris(LocalDateTime start, LocalDateTime end, boolean uniq, String[] uris) {

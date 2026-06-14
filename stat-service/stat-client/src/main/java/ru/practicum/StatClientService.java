@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import shared.UtilConstant;
 import shared.dto.EndpointHit;
 import shared.dto.ErrorResponse;
-import shared.dto.RequestFilterState;
 import shared.dto.ViewStats;
 
 import java.io.IOException;
@@ -19,6 +18,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -36,10 +36,12 @@ public class StatClientService {
         this.httpClient = HttpClient.newBuilder().build();
     }
 
-    public void saveHit(EndpointHit endpointHit) throws
+    public void saveHit(String app, String uri, String ip, String timestamp) throws
             URISyntaxException, IOException, InterruptedException, RuntimeException {
 
-        String hitJson = gson.toJson(endpointHit);
+        EndpointHit newHit = new EndpointHit(app, uri, ip, timestamp);
+
+        String hitJson = gson.toJson(newHit);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(serviceUrl + "/hit"))
@@ -57,18 +59,23 @@ public class StatClientService {
         }
     }
 
-    public List<ViewStats> getStats(RequestFilterState filterState) throws
+    public List<ViewStats> getStats(
+            String start,
+            String end,
+            String[] uris,
+            boolean unique
+    ) throws
             URISyntaxException, IOException, InterruptedException, RuntimeException {
 
         StringBuilder url = new StringBuilder(serviceUrl + "/stats?");
 
         StringJoiner joiner = new StringJoiner("&");
-        joiner.add("start=" + encodeUTF8(filterState.getStart().format(UtilConstant.FORMATTER)));
-        joiner.add("end=" + encodeUTF8(filterState.getEnd().format(UtilConstant.FORMATTER)));
-        joiner.add("unique=" + filterState.getUnique());
+        joiner.add("start=" + encodeUTF8(LocalDateTime.parse(start, UtilConstant.FORMATTER)));
+        joiner.add("end=" + encodeUTF8(LocalDateTime.parse(end, UtilConstant.FORMATTER)));
+        joiner.add("unique=" + unique);
 
-        if (filterState.getUris() != null && filterState.getUris().length != 0) {
-            joiner.add("uris=" + encodeUTF8(filterState.getUris()));
+        if (uris != null && uris.length != 0) {
+            joiner.add("uris=" + encodeUTF8(uris));
         }
 
         url.append(joiner);
