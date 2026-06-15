@@ -645,9 +645,9 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "{{BASE_URL}}/admin/comments/{{commentId}}",
+          "raw": "{{baseUrl}}/admin/comments/{{commentId}}",
           "host": [
-            "{{BASE_URL}}"
+            "{{baseUrl}}"
           ],
           "path": [
             "admin",
