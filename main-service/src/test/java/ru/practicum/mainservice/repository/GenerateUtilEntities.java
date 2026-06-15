@@ -18,14 +18,14 @@ public abstract class GenerateUtilEntities {
 
     protected static final Random random = new Random();
 
-    protected List<Category> generateCategories(int limit) {
+    protected static List<Category> generateCategories(int limit) {
         return Stream.generate(() ->
                         Category.builder().name(MockGeneratedData.generatorText(random.nextInt(50))).build())
                 .limit(limit)
                 .toList();
     }
 
-    protected List<User> generateUsers(int limit) {
+    protected static List<User> generateUsers(int limit) {
         return  Stream.generate(() ->
                         User.builder().name(MockGeneratedData.generatorText(random.nextInt(20)))
                                 .email(MockGeneratedData.generatorEmail()).build())
@@ -33,7 +33,7 @@ public abstract class GenerateUtilEntities {
                 .toList();
     }
 
-    protected List<Event> generateEvents(int limit, List<User> users, List<Category> categories) {
+    protected static List<Event> generateEvents(int limit, List<User> users, List<Category> categories) {
 
         EventState[] states = EventState.values();
 

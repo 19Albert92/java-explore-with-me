@@ -242,6 +242,7 @@ public class EventServiceImpl implements EventService {
                 .toList();
     }
 
+    @Override
     public Map<String, Long> getViews(List<Event> events) {
         LocalDateTime start = events.stream()
                 .map(Event::getCreatedAt)
