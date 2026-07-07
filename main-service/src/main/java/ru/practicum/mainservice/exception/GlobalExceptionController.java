@@ -1,15 +1,18 @@
 package ru.practicum.mainservice.exception;
 
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import ru.practicum.mainservice.dto.ApiException;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import static shared.UtilConstant.FORMATTER;
 
@@ -54,6 +57,26 @@ public class GlobalExceptionController {
                                 .status(HttpStatus.BAD_REQUEST)
                                 .reason("Failed to convert value of type java.lang.String to required type long; nested exception is java.lang.NumberFormatException")
                                 .message(e.getMessage())
+                                .timestamp(LocalDateTime.now().format(FORMATTER))
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<ApiException> handleMethodValidationException(HandlerMethodValidationException e) {
+
+        String errorMessage = e.getAllValidationResults().stream()
+                .flatMap(res -> res.getResolvableErrors().stream())
+                .map(MessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining(", "));
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ApiException.builder()
+                                .status(HttpStatus.BAD_REQUEST)
+                                .reason("Validation error")
+                                .message(errorMessage)
                                 .timestamp(LocalDateTime.now().format(FORMATTER))
                                 .build()
                 );
